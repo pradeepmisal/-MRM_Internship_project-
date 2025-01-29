@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f4f4f4;
+            flex-direction: column;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .switch {
+            margin-top: 10px;
+            color: #007BFF;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="login-container">
+        <h2>Login</h2>
+        <label for="login-department">Department:</label>
+        <select id="login-department">
+            <option value="Production">Production</option>
+            <option value="Quality">Quality</option>
+            <option value="Store">Store</option>
+            <option value="Purchase">Purchase</option>
+            <option value="Machine Maintenance">Machine Maintenance</option>
+            <option value="Tool Maintenance">Tool Maintenance</option>
+            <option value="Safety">Safety</option>
+            <option value="Admin">Admin</option>
+        </select>
+        <input type="email" id="login-email" placeholder="Email">
+        <input type="password" id="login-password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <p class="switch" onclick="showSignUp()">Don't have an account? Sign Up</p>
+    </div>
+
+    <div class="container" id="signup-container" style="display: none;">
+        <h2>Sign Up</h2>
+        <label for="signup-department">Department:</label>
+        <select id="signup-department">
+            <option value="Production">Production</option>
+            <option value="Quality">Quality</option>
+            <option value="Store">Store</option>
+            <option value="Purchase">Purchase</option>
+            <option value="Machine Maintenance">Machine Maintenance</option>
+            <option value="Tool Maintenance">Tool Maintenance</option>
+            <option value="Safety">Safety</option>
+            <option value="Admin">Admin</option>
+        </select>
+        <input type="email" id="signup-email" placeholder="Email">
+        <input type="password" id="signup-password" placeholder="Password">
+        <button onclick="signup()">Sign Up</button>
+        <p class="switch" onclick="showLogin()">Already have an account? Login</p>
+    </div>
+
+    <script>
+        function showSignUp() {
+            document.getElementById("login-container").style.display = "none";
+            document.getElementById("signup-container").style.display = "block";
+        }
+
+        function showLogin() {
+            document.getElementById("signup-container").style.display = "none";
+            document.getElementById("login-container").style.display = "block";
+        }
+
+        function login() {
+            const department = document.getElementById("login-department").value;
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+
+            fetch("http://localhost:5000/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ department, email, password })
+            })
+            .then(res => res.json())
+            .then(data => alert(data.message))
+            .catch(err => console.log(err));
+        }
+
+        function signup() {
+            const department = document.getElementById("signup-department").value;
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+
+            fetch("http://localhost:5000/api/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ department, email, password })
+            })
+            .then(res => res.json())
+            .then(data => alert(data.message))
+            .catch(err => console.log(err));
+        }
+    </script>
+
+</body>
+</html>
