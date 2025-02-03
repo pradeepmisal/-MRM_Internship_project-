@@ -147,7 +147,7 @@ export default function ExcelViewer({ file, isNewSheet, onSave }: ExcelViewerPro
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-wrap justify-between items-center gap-2">
         <div className="space-x-2">
           <Button onClick={handleAddColumn} variant="outline" size="sm">
             <Plus className="h-4 w-4 mr-2" />
@@ -163,7 +163,7 @@ export default function ExcelViewer({ file, isNewSheet, onSave }: ExcelViewerPro
           Save Sheet
         </Button>
       </div>
-      <div ref={containerRef} className="w-full h-[400px] overflow-auto border rounded-md" />
+      <div ref={containerRef} className="w-full h-[300px] md:h-[400px] overflow-auto border rounded-md" />
     </div>
   )
 }
